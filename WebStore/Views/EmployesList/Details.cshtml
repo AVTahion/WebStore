@@ -1,0 +1,39 @@
+﻿@model WebStore.ViewModels.EmployeeView
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>@Model.Id</td>
+        </tr>
+        <tr>
+            <td>Имя</td>
+            <td>@Model.FirstName</td>
+        </tr>
+        <tr>
+            <td>Фамилия</td>
+            <td>@Model.LastName</td>
+        </tr>
+        <tr>
+            <td>Отчество</td>
+            <td>@Model.Patronymic</td>
+        </tr>
+        <tr>
+            <td>Возраст</td>
+            <td>@Model.Age</td>
+        </tr>
+        <tr>
+            <td>Номер телефона</td>
+            <td>@Model.TelNumber</td>
+        </tr>
+    </table>
+    <a href="/employeslist">назад</a>
+</body>
+</html>
