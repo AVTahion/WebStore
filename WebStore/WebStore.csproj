@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\imgs\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

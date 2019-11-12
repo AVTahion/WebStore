@@ -14,14 +14,8 @@ namespace WebStore.Controllers
         {
             _Configuration = Configuration;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index => View();
 
-        public IActionResult ReadConfig()
-        {
-            return Content(_Configuration["CustomData"]);
-        }
+        public IActionResult ReadConfig => Content(_Configuration["CustomData"]);
     }
 }
