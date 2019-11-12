@@ -17,6 +17,7 @@ namespace WebStore
         public Startup(IConfiguration Config) => Configuration = Config;
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -26,10 +27,17 @@ namespace WebStore
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Run(async (context) =>
+            app.UseMvc( routes => 
             {
-                await context.Response.WriteAsync(Configuration["CustomData"]);
+                routes.MapRoute(
+                     "default",
+                     "{controller=Home}/{action=Index}/{id?}");
             });
+
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync(Configuration["CustomData"]);
+            //});
         }
     }
 }
