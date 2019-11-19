@@ -9,7 +9,7 @@ namespace WebStore.infrastucture.interfaces
     /// <summary>
     /// Сервис сотрудников
     /// </summary>
-    interface IEmployeesData
+    public interface IEmployeesData
     {
         /// <summary>
         /// Получение всех сотрудников
