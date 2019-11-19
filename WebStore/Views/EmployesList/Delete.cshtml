@@ -1,0 +1,55 @@
+﻿@model WebStore.ViewModels.EmployeeView
+
+@{
+    ViewData["Title"] = "Удаление сотрудника id: " + Model.Id;
+}
+
+<h4>@ViewData["Title"]</h4>
+
+<h3>Вы действительно хотите удалить данного сотрудника?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Patronymic)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Patronymic)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TelNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TelNumber)
+        </dd>
+    </dl>
+    
+    <form asp-action="DeleteConfirmed" asp-route-Id="@Model.Id">
+        <input type="submit" value="Удалить" class="btn btn-danger" style="margin-bottom: 10px" />
+        <a asp-action="Index" class="btn btn-default" style="margin-bottom: 10px">Отмена</a>
+    </form>
+</div>

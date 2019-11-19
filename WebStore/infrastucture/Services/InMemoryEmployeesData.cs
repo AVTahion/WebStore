@@ -51,9 +51,6 @@ namespace WebStore.infrastucture.Services
 
         public EmployeeView GetById(int id) => _Employes.FirstOrDefault(e => e.Id == id);
 
-        public void SaveChanges()
-        {
-            throw new NotImplementedException();
-        }
+        public void SaveChanges(){ }
     }
 }

@@ -34,12 +34,14 @@ namespace WebStore.Controllers
             return View(employee);
         }
 
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int? id)
         {
+            if (id is null) 
+                return View(new EmployeeView()); //Для создания нового сотрудника 
             if (id < 0)
                 return BadRequest();
 
-            var employee = _EmployeesData.GetById((int)id);
+            var employee = _EmployeesData.GetById((int) id);
             if (employee is null)
                 return NotFound();
 
@@ -56,11 +58,43 @@ namespace WebStore.Controllers
                 View(Model);
 
             var id = Model.Id;
-            _EmployeesData.Edit(id, Model);
+            if(id == 0)
+                _EmployeesData.Add(Model);
+            else
+                _EmployeesData.Edit(id, Model);
+
             _EmployeesData.SaveChanges();
 
             return RedirectToAction("Index");
+        }
 
+        //public IActionResult Create() => View(new EmployeeView());
+
+        //[HttpPost]
+        //public IActionResult Create(EmployeeView Model)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return View(Model);
+
+        //    _EmployeesData.Add(Model);
+        //    _EmployeesData.SaveChanges();
+
+        //    return RedirectToAction("Index");
+        //}
+
+        public IActionResult Delete(int id)
+        {
+            var employee = _EmployeesData.GetById(id);
+            if (employee is null)
+                return NotFound();
+            return View(employee);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            _EmployeesData.Delete(id);
+            return RedirectToAction("Index");
         }
     }
 }
