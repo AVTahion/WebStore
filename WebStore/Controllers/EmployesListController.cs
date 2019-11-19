@@ -33,5 +33,34 @@ namespace WebStore.Controllers
 
             return View(employee);
         }
+
+        public IActionResult Edit(int id)
+        {
+            if (id < 0)
+                return BadRequest();
+
+            var employee = _EmployeesData.GetById((int)id);
+            if (employee is null)
+                return NotFound();
+
+            return View(employee);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(EmployeeView Model)
+        {
+            if (Model is null)
+                throw new ArgumentNullException(nameof(Model));
+
+            if (!ModelState.IsValid)
+                View(Model);
+
+            var id = Model.Id;
+            _EmployeesData.Edit(id, Model);
+            _EmployeesData.SaveChanges();
+
+            return RedirectToAction("Index");
+
+        }
     }
 }
