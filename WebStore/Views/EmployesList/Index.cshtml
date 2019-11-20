@@ -14,6 +14,7 @@
             <th>Имя</th>
             <th>Отчество</th>
             <th>Возраст</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -26,8 +27,14 @@
                  <td>@employee.Patronymic</td>
                  <td>@employee.Age</td>
                  <td>@Html.ActionLink("Детали", "Details", new { id = employee.Id })</td>
+                 <td>
+                     <a asp-action="Edit" asp-route-Id="@employee.Id"><i class="fa fa-user-edit"></i></a>
+                     <a asp-action="Delete" asp-route-Id="@employee.Id"><i class="fa fa-trash text-danger"></i></a>
+                 </td>
+                 
              </tr>
         }
     </tbody>
 </table>
+<a asp-action="Edit" class="btn btn-default" style="margin-bottom: 10px">Добавить</a>
 
