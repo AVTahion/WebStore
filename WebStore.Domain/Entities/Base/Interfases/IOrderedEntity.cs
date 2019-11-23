@@ -3,7 +3,7 @@
     /// <summary>
     /// Упорядочиваемая сущность
     /// </summary>
-    public interface IOrderedEntities : IBaseEntities
+    public interface IOrderedEntity : IBaseEntity
     {
         /// <summary>
         /// Порядковый номер

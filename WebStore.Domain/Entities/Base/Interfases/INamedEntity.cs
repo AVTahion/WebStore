@@ -1,9 +1,9 @@
 ﻿namespace WebStore.Domain.Entities.Base.Interfases
 {
     /// <summary>
-    /// именованая сущность
+    /// Именованная сущность
     /// </summary>
-    public interface INamedEntities : IBaseEntities
+    public interface INamedEntity : IBaseEntity
     {
         /// <summary>
         /// Имя

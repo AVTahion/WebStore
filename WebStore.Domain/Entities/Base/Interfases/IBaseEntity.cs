@@ -7,7 +7,7 @@ namespace WebStore.Domain.Entities.Base.Interfases
     /// <summary>
     /// Сущность
     /// </summary>
-    public interface IBaseEntities
+    public interface IBaseEntity
     {
         /// <summary>
         /// Идентификатор
