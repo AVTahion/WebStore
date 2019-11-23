@@ -16,6 +16,7 @@ namespace WebStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
+            services.AddScoped<IProductData, InMemoryProductData>();
             services.AddSession();
             services.AddMvc();
         }
