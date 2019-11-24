@@ -1,27 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using WebStore.Domain.Entities;
 using WebStore.infrastucture.interfaces;
 using WebStore.ViewModels;
 
 namespace WebStore.Components
 {
+    //[ViewComponent(Name = "Sections")]
     public class SectionsViewComponent : ViewComponent
     {
         private readonly IProductData _ProductData;
         public SectionsViewComponent(IProductData ProductData) => _ProductData = ProductData;
-
-        public IViewComponentResult Invoke() => View(GetSections());
-
+        
         //public async Task<IViewComponentResult> InvokeAsync() => View();
+        public IViewComponentResult Invoke() => View(GetSections());
         
         private IEnumerable<SectionViewModel> GetSections()
         {
             var sections = _ProductData.GetSections();
+
             var parent_sections = sections.Where(section => section.ParentId is null).ToArray();
+            
             var parent_sections_views = parent_sections
                 .Select(parent_section => new SectionViewModel
                 {
@@ -34,7 +33,7 @@ namespace WebStore.Components
             foreach (var parent_section_view in parent_sections_views)
             {
                 var childs = sections.Where(section => section.ParentId == parent_section_view.Id);
-                foreach(var child_section in childs)
+                foreach (var child_section in childs)
                     parent_section_view.ChildSections.Add(
                         new SectionViewModel
                         {
@@ -45,6 +44,7 @@ namespace WebStore.Components
                         });
                 parent_section_view.ChildSections.Sort((a, b) => Comparer<int>.Default.Compare(a.Order, b.Order));
             }
+
             parent_sections_views.Sort((a, b) => Comparer<int>.Default.Compare(a.Order, b.Order));
             return parent_sections_views;
         }
