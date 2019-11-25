@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.ViewModels;
 using WebStore.infrastucture.interfaces;
@@ -36,8 +33,8 @@ namespace WebStore.Controllers
 
         public IActionResult Edit(int? id)
         {
-            if (id is null) 
-                return View(new EmployeeView()); //Для создания нового сотрудника 
+            if (id is null) return View(new EmployeeView()); //Для создания нового сотрудника 
+            
             if (id < 0)
                 return BadRequest();
 
@@ -49,19 +46,25 @@ namespace WebStore.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(EmployeeView Model)
+        public IActionResult Edit(EmployeeView Employee)
         {
-            if (Model is null)
-                throw new ArgumentNullException(nameof(Model));
+            if (Employee is null)
+                throw new ArgumentOutOfRangeException(nameof(Employee));
+
+            if (Employee.Age < 18)
+                ModelState.AddModelError(nameof(EmployeeView.Age), "Возраст сотрудника не может быть меньше 18 лет");
+
+            if (Employee.FirstName == "Владимир" && Employee.Patronymic == "Владимирович" && Employee.LastName == "Путин")
+                ModelState.AddModelError("", "Не может быть! Не верю!");
 
             if (!ModelState.IsValid)
-                View(Model);
+                return View(Employee);
 
-            var id = Model.Id;
-            if(id == 0)
-                _EmployeesData.Add(Model);
+            var id = Employee.Id;
+            if (id == 0)
+                _EmployeesData.Add(Employee);
             else
-                _EmployeesData.Edit(id, Model);
+                _EmployeesData.Edit(id, Employee);
 
             _EmployeesData.SaveChanges();
 
