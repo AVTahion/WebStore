@@ -1,4 +1,5 @@
-﻿using WebStore.Domain.Entities.Base.Interfases;
+﻿using System.ComponentModel.DataAnnotations;
+using WebStore.Domain.Entities.Base.Interfases;
 
 namespace WebStore.Domain.Entities.Base
 {
@@ -7,6 +8,7 @@ namespace WebStore.Domain.Entities.Base
     /// </summary>
     public abstract class NamedEntity : BaseEntity, INamedEntity
     {
+        [Required]
         public string Name { get; set; }
     }
 
