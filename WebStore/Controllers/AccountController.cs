@@ -48,7 +48,7 @@ namespace WebStore.Controllers
             return View(Model);
         }
 
-        //public IActionResult Login() => View();
+        public IActionResult Login() => View();
 
     }
 }
