@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.ViewModels;
 using WebStore.infrastucture.interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebStore.Controllers
 {
+    [Authorize]
     public class EmployesListController : Controller
     {
         private readonly IEmployeesData _EmployeesData;
