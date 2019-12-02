@@ -11,7 +11,7 @@
   {
     "outputFileName": "wwwroot/js/site.js",
     "inputFiles": [
-      "wwwroot/js/contact.js",
+      //"wwwroot/js/contact.js",
       "wwwroot/js/main.js",
       "wwwroot/js/price-range.js",
       "wwwroot/js/gmaps.js"
