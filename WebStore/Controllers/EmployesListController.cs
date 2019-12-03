@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebStore.ViewModels;
 using WebStore.infrastucture.interfaces;
 using Microsoft.AspNetCore.Authorization;
+using WebStore.Domain.Entities.Identity;
 
 namespace WebStore.Controllers
 {
@@ -34,6 +35,7 @@ namespace WebStore.Controllers
             return View(employee);
         }
 
+        [Authorize(Roles = Role.Administrator)]
         public IActionResult Edit(int? id)
         {
             if (id is null) return View(new EmployeeView()); //Для создания нового сотрудника 
@@ -49,6 +51,7 @@ namespace WebStore.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = Role.Administrator)]
         public IActionResult Edit(EmployeeView Employee)
         {
             if (Employee is null)
@@ -88,6 +91,7 @@ namespace WebStore.Controllers
         //    return RedirectToAction("Index");
         //}
 
+        [Authorize(Roles = Role.Administrator)]
         public IActionResult Delete(int id)
         {
             var employee = _EmployeesData.GetById(id);
@@ -97,6 +101,7 @@ namespace WebStore.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = Role.Administrator)]
         public IActionResult DeleteConfirmed(int id)
         {
             _EmployeesData.Delete(id);

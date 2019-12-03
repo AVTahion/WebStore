@@ -23,6 +23,14 @@ namespace WebStore.Controllers
             _logger = logger;
         }
 
+        public async Task<IActionResult> IsNameFree(string UserName)
+        {
+            var user = await _userManager.FindByNameAsync(UserName);
+            if (user != null)
+                return Json("Пользователь с таким именем уже существует.");
+            return Json("true");
+        }
+
         public IActionResult Register() => View(new RegisterUserViewModel());
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -94,5 +102,6 @@ namespace WebStore.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public IActionResult AccessDenided() => View();
     }
 }
