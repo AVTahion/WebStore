@@ -1,4 +1,5 @@
-﻿@model IEnumerable<WebStore.ViewModels.EmployeeView>
+﻿@using WebStore.Domain.Entities.Identity
+@model IEnumerable<WebStore.ViewModels.EmployeeView>
 
 @{
     ViewBag.Title = "Сотрудники";
@@ -14,27 +15,35 @@
             <th>Имя</th>
             <th>Отчество</th>
             <th>Возраст</th>
-            <th></th>
+            @if (User.IsInRole(Role.Administrator))
+            {
+                <th></th>
+            }
         </tr>
     </thead>
     <tbody>
-        @foreach(var employee in Model)
+        @foreach (var employee in Model)
         {
-             <tr>
-                 <td>@employee.Id</td>
-                 <td>@employee.LastName</td>
-                 <td>@employee.FirstName</td>
-                 <td>@employee.Patronymic</td>
-                 <td>@employee.Age</td>
-                 <td>@Html.ActionLink("Детали", "Details", new { id = employee.Id })</td>
-                 <td>
-                     <a asp-action="Edit" asp-route-Id="@employee.Id"><i class="fa fa-user-edit"></i></a>
-                     <a asp-action="Delete" asp-route-Id="@employee.Id"><i class="fa fa-trash text-danger"></i></a>
-                 </td>
-                 
-             </tr>
+            <tr>
+                <td>@employee.Id</td>
+                <td>@employee.LastName</td>
+                <td>@employee.FirstName</td>
+                <td>@employee.Patronymic</td>
+                <td>@employee.Age</td>
+                <td>@Html.ActionLink("Детали", "Details", new { id = employee.Id })</td>
+                @if (User.IsInRole(Role.Administrator))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-Id="@employee.Id"><i class="fa fa-user-edit"></i></a>
+                        <a asp-action="Delete" asp-route-Id="@employee.Id"><i class="fa fa-trash text-danger"></i></a>
+                    </td>
+                }
+            </tr>
         }
     </tbody>
 </table>
-<a asp-action="Edit" class="btn btn-default" style="margin-bottom: 10px">Добавить</a>
+@if (User.IsInRole(Role.Administrator))
+{
+    <a asp-action="Edit" class="btn btn-default" style="margin-bottom: 10px">Добавить</a>
+}
 
