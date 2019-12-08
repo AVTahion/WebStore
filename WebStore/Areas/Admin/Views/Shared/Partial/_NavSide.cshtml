@@ -1,15 +1,7 @@
-﻿@using WebStore.Areas.Admin.Models
+﻿@using WebStore.Areas.Admin
+@using WebStore.Areas.Admin.Controllers
 @{
-    ViewBag.MenuItems = new List<MenuItem>
-    {
-        new MenuItem {Action = "Index", Ico = "fa fa-dashboard fa-3x", Title = " Dashboard"},
-        new MenuItem {Action = "UI", Ico = "fa fa-desktop fa-3x", Title = " UI Elements"},
-        new MenuItem {Action = "Tab_panel", Ico = "fa fa-qrcode fa-3x", Title = " Tabs & Panels"},
-        new MenuItem {Action = "Chart", Ico = "fa fa-bar-chart-o fa-3x", Title = " Morris Charts"},
-        new MenuItem {Action = "Table", Ico = "fa fa-table fa-3x", Title = " Table Examples"},
-        new MenuItem {Action = "Form", Ico = "fa fa-edit fa-3x", Title = " Forms"},
-        new MenuItem {Action = "Blank", Ico = "fa fa-square-o fa-3x", Title = " Blank Page"}
-    };
+    var actions = typeof(HomeController).GetMethods();
 }
 
 <nav class="navbar-default navbar-side" role="navigation">
@@ -19,46 +11,29 @@
                 <img src="~/admin/images/find_user.png" class="user-image img-responsive" />
             </li>
 
-            @foreach (MenuItem element in @ViewBag.MenuItems)
+            @foreach (var element in actions)
             {
-                if (string.Equals((string) Html.ViewContext.RouteData.Values["action"], element.Action, StringComparison.CurrentCultureIgnoreCase))
+                MenuItemElementsAttribute mIElements = (MenuItemElementsAttribute) Attribute.GetCustomAttribute(element, typeof(MenuItemElementsAttribute));
+                if (mIElements is null)
+                {
+                    continue;
+                }
+
+                if (string.Equals((string) Html.ViewContext.RouteData.Values["action"], element.Name, StringComparison.CurrentCultureIgnoreCase))
                 {
                     <li>
-                        <a class="active-menu" asp-area="Admin" asp-controller="Home" asp-action="@element.Action"><i class="@element.Ico"></i> @element.Title</a>
+                        <a class="active-menu" asp-area="Admin" asp-controller="Home" asp-action="@element.Name"><i class="@mIElements.Ico"></i> @mIElements.Title</a>
                     </li>
 
                 }
                 else
                 {
                     <li>
-                        <a asp-area="Admin" asp-controller="Home" asp-action="@element.Action"><i class="@element.Ico"></i> @element.Title</a>
+                        <a asp-area="Admin" asp-controller="Home" asp-action="@element.Name"><i class="@mIElements.Ico"></i> @mIElements.Title</a>
                     </li>
                 }
             }
 
-            @*<li>
-                <a class="active-menu" href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
-                @Html.ActionLink("Dashboard", "Index", "Home", null, new { @class = "active-menu" })
-                <a class="active-menu" asp-area="Admin" asp-controller="Home" asp-action="Index"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
-            </li>
-            <li>
-                <a asp-area="Admin" asp-controller="Home" asp-action="UI"><i class="fa fa-desktop fa-3x"></i> UI Elements</a>
-            </li>
-            <li>
-                <a asp-area="Admin" asp-controller="Home" asp-action="Tab_panel"><i class="fa fa-qrcode fa-3x"></i> Tabs & Panels</a>
-            </li>
-            <li>
-                <a asp-area="Admin" asp-controller="Home" asp-action="Chart"><i class="fa fa-bar-chart-o fa-3x"></i> Morris Charts</a>
-            </li>
-            <li>
-                <a asp-area="Admin" asp-controller="Home" asp-action="Table"><i class="fa fa-table fa-3x"></i> Table Examples</a>
-            </li>
-            <li>
-                <a asp-area="Admin" asp-controller="Home" asp-action="Form"><i class="fa fa-edit fa-3x"></i> Forms </a>
-            </li>
-            <li>
-                <a asp-area="Admin" asp-controller="Home" asp-action="Blank"><i class="fa fa-square-o fa-3x"></i> Blank Page</a>
-            </li>*@
             <li>
                 <a href="#"><i class="fa fa-sitemap fa-3x"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
@@ -86,13 +61,6 @@
                     </li>
                 </ul>
             </li>
-            @*<li>
-            <a asp-area="Admin" asp-controller="Home" asp-action="Login"><i class="fa fa-bolt fa-3x"></i> Login</a>
-        </li>
-        <li>
-            <a asp-area="Admin" asp-controller="Home" asp-action="Registeration"><i class="fa fa-laptop fa-3x"></i> Registeration</a>
-        </li>*@
-
         </ul>
 
     </div>
