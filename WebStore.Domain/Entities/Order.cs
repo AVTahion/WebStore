@@ -11,7 +11,7 @@ namespace WebStore.Domain.Entities
 
         public string Phone { get; set; }
 
-        public  string Addres { get; set; }
+        public  string Address { get; set; }
 
         public DateTime Date { get; set; }
 

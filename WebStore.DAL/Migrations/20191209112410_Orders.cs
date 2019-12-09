@@ -17,7 +17,7 @@ namespace WebStore.DAL.Migrations
                     Name = table.Column<string>(nullable: false),
                     UserId = table.Column<string>(nullable: true),
                     Phone = table.Column<string>(nullable: true),
-                    Addres = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
