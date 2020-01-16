@@ -1,0 +1,36 @@
+﻿@model IEnumerable<UserOrderViewModel>
+
+@{
+    Layout = "_ProfileLayout";
+    ViewData["Title"] = "Заказы";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>№</th>
+            <th>Имя</th>
+            <th>Адрес доставки</th>
+            <th>Телефон</th>
+            <th>Сумма заказа</th>
+            <th>Дата оформления</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 1;
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@(i++)</td>
+                <td>@item.Name</td>
+                <td>@item.Address</td>
+                <td>@item.Phone</td>
+                <td>@item.TotalSum.ToString("C")</td>
+                <td>@item.Date</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
