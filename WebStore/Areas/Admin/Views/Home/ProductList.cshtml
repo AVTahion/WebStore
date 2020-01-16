@@ -1,0 +1,70 @@
+﻿@model IEnumerable<WebStore.Domain.Entities.Product>
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Список товаров";
+}
+
+<div id="page-wrapper">
+    <div id="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Список товаров</h2>
+            </div>
+        </div>
+        <!-- /. ROW  -->
+        <hr />
+        
+        <a asp-action="Edit" class="btn btn-success">Добавить новый товар</a>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    @*<div class="panel-heading">
+                        Список товаров
+                    </div>*@
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th></th>
+
+                                    <th>@Html.DisplayNameFor(product => product.Name)</th>
+                                    <th>@Html.DisplayNameFor(product => product.Brand)</th>
+                                    <th>@Html.DisplayNameFor(product => product.Section)</th>
+                                    <th>Image</th>
+                                    <th>@Html.DisplayNameFor(product => product.Price)</th>
+
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach (var product in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a asp-action="Edit" asp-route-id="@product.Id" title="Редактировать"><i class="glyphicon glyphicon-edit"></i></a>
+                                        </td>
+                                        <td>@Html.DisplayFor(p => product.Name)</td>
+                                        <td>@Html.DisplayFor(p => product.Brand.Name)</td>
+                                        <td>@Html.DisplayFor(p => product.Section.Name)</td>
+                                        <td><img src="~/images/shop/@product.ImageUrl" width="50" alt="@product.Name"/></td>
+                                        <td>@Html.DisplayFor(p => product.Price)</td>
+                                        <td>
+                                            <a asp-action="Delete" asp-route-id="@product.Id" title="Удалить"><i class="glyphicon glyphicon-remove"></i></a>
+                                        </td>
+
+                                    </tr>
+                                }
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,69 @@
+﻿@using WebStore.Areas.Admin
+@using WebStore.Areas.Admin.Controllers
+@{
+    var actions = typeof(HomeController).GetMethods();
+}
+
+<nav class="navbar-default navbar-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="main-menu">
+            <li class="text-center">
+                <img src="~/admin/images/find_user.png" class="user-image img-responsive" />
+            </li>
+
+            @foreach (var element in actions)
+            {
+                MenuItemElementsAttribute mIElements = (MenuItemElementsAttribute) Attribute.GetCustomAttribute(element, typeof(MenuItemElementsAttribute));
+                if (mIElements is null)
+                {
+                    continue;
+                }
+
+                if (string.Equals((string) Html.ViewContext.RouteData.Values["action"], element.Name, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    <li>
+                        <a class="active-menu" asp-area="Admin" asp-controller="Home" asp-action="@element.Name"><i class="@mIElements.Ico"></i> @mIElements.Title</a>
+                    </li>
+
+                }
+                else
+                {
+                    <li>
+                        <a asp-area="Admin" asp-controller="Home" asp-action="@element.Name"><i class="@mIElements.Ico"></i> @mIElements.Title</a>
+                    </li>
+                }
+            }
+
+            <li>
+                <a href="#"><i class="fa fa-sitemap fa-3x"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="#">Second Level Link</a>
+                    </li>
+                    <li>
+                        <a href="#">Second Level Link</a>
+                    </li>
+                    <li>
+                        <a href="#">Second Level Link<span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li>
+                                <a href="#">Third Level Link</a>
+                            </li>
+                            <li>
+                                <a href="#">Third Level Link</a>
+                            </li>
+                            <li>
+                                <a href="#">Third Level Link</a>
+                            </li>
+
+                        </ul>
+
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+
+</nav>
+<!-- /. NAV SIDE  -->
