@@ -1,6 +1,6 @@
 ﻿using WebStore.Domain.Models;
 
-namespace WebStore.ViewModels
+namespace WebStore.Domain.ViewModels
 {
     public class CartOrderDetailsViewModel
     {

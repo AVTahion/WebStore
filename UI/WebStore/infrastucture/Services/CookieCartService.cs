@@ -3,8 +3,8 @@ using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using WebStore.Domain.Entities;
+using WebStore.Domain.Models;
 using WebStore.infrastucture.interfaces;
-using WebStore.Models;
 using WebStore.ViewModels;
 
 namespace WebStore.infrastucture.Services
