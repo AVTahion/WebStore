@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using WebStore.Domain.Entities;
 using WebStore.Domain.Models;
+using WebStore.Domain.ViewModels;
 using WebStore.infrastucture.interfaces;
-using WebStore.ViewModels;
 
-namespace WebStore.infrastucture.Services
+namespace WebStore.Services.Product
 {
     public class CookieCartService : ICartService
     {
@@ -38,7 +38,7 @@ namespace WebStore.infrastucture.Services
         private void ReplaceCookie(IResponseCookies cookies, string cookie)
         {
             cookies.Delete(_CartName);
-            cookies.Append(_CartName, cookie, new CookieOptions {Expires = DateTime.Now.AddDays(10)});
+            cookies.Append(_CartName, cookie, new CookieOptions { Expires = DateTime.Now.AddDays(10) });
         }
 
         public CookieCartService(IProductData productData, IHttpContextAccessor httpContextAccessor)
@@ -49,7 +49,7 @@ namespace WebStore.infrastucture.Services
             var user = httpContextAccessor.HttpContext.User;
             var user_name = user.Identity.IsAuthenticated ? user.Identity.Name : null;
             _CartName = $"Cart <{user_name}>";
-        } 
+        }
 
         public void AddToCart(int Id)
         {
@@ -57,7 +57,7 @@ namespace WebStore.infrastucture.Services
             var item = cart.Items.FirstOrDefault(i => i.ProductId == Id);
 
             if (item is null)
-                cart.Items.Add(new CartItem {ProductId = Id, Quantity = 1});
+                cart.Items.Add(new CartItem { ProductId = Id, Quantity = 1 });
             else
                 item.Quantity++;
 
@@ -69,13 +69,13 @@ namespace WebStore.infrastucture.Services
             var cart = Cart;
             var item = cart.Items.FirstOrDefault(i => i.ProductId == Id);
 
-            if (item is null) 
+            if (item is null)
                 return;
 
-            if (item.Quantity > 0) 
+            if (item.Quantity > 0)
                 item.Quantity--;
 
-            if (item.Quantity == 0) 
+            if (item.Quantity == 0)
                 cart.Items.Remove(item);
 
             Cart = cart;

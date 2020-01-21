@@ -7,7 +7,7 @@ namespace WebStore.Domain.Entities
     {
         public virtual Order Order { get; set; }
 
-        public virtual Product Product { get; set; }
+        public virtual Domain.Entities.Product Product { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }

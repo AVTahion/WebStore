@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using WebStore.ViewModels;
+using WebStore.Domain.ViewModels;
 using WebStore.infrastucture.interfaces;
 using Microsoft.AspNetCore.Authorization;
 using WebStore.Domain.Entities.Identity;

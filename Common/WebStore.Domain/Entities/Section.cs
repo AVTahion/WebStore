@@ -14,6 +14,6 @@ namespace WebStore.Domain.Entities
         [ForeignKey(nameof(ParentId))]
         public virtual Section ParentSections { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<Domain.Entities.Product> Products { get; set; }
     }
 }

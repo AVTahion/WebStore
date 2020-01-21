@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using WebStore.Domain.ViewModels;
 using WebStore.infrastucture.interfaces;
-using WebStore.ViewModels;
 
-namespace WebStore.infrastucture.Services
+namespace WebStore.Services.Product
 {
     public class InMemoryEmployeesData : IEmployeesData
     {
@@ -24,7 +23,7 @@ namespace WebStore.infrastucture.Services
             Employee.Id = _Employes.Count == 0 ? 1 : _Employes.Max(e => e.Id) + 1;
             _Employes.Add(Employee);
         }
-     
+
         public bool Delete(int id)
         {
             var db_employee = GetById(id);
@@ -51,6 +50,6 @@ namespace WebStore.infrastucture.Services
 
         public EmployeeView GetById(int id) => _Employes.FirstOrDefault(e => e.Id == id);
 
-        public void SaveChanges(){ }
+        public void SaveChanges() { }
     }
 }

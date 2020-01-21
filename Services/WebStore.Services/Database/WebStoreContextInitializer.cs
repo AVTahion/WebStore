@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Channels;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Scaffolding.Internal;
 using WebStore.DAL.Context;
 using WebStore.Domain.Entities.Identity;
 
-namespace WebStore.Data
+namespace WebStore.Services.Database
 {
     public class WebStoreContextInitializer
     {
@@ -94,7 +89,7 @@ namespace WebStore.Data
                 }
                 else
                 {
-                    throw new InvalidOperationException($"Ошибка при создании администратора в БД {string.Join(",", creation_result.Errors.Select(e => e.Description))}" );
+                    throw new InvalidOperationException($"Ошибка при создании администратора в БД {string.Join(",", creation_result.Errors.Select(e => e.Description))}");
                 }
             }
         }

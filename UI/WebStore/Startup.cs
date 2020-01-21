@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebStore.DAL.Context;
-using WebStore.Data;
 using WebStore.Domain.Entities.Identity;
 using WebStore.infrastucture.interfaces;
-using WebStore.infrastucture.Services;
+using WebStore.Services.Database;
+using WebStore.Services.Product;
 
 namespace WebStore
 {

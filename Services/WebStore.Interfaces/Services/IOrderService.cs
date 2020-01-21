@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using WebStore.Domain.Entities;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Domain.Models;
-using WebStore.ViewModels;
+using WebStore.Domain.ViewModels;
 
 namespace WebStore.infrastucture.interfaces
 {

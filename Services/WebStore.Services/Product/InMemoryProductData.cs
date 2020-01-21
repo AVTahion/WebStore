@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using WebStore.Data;
 using WebStore.Domain.Entities;
 using WebStore.infrastucture.interfaces;
+using WebStore.Services.Database;
 
-namespace WebStore.infrastucture.Services
+namespace WebStore.Services.Product
 {
     public class InMemoryProductData : IProductData
     {
         public IEnumerable<Brand> GetBrands() => TestData.Brands;
 
-        public Product GetProductById(int id) => TestData.Products.FirstOrDefault(p => p.Id == id);
+        public Domain.Entities.Product GetProductById(int id) => TestData.Products.FirstOrDefault(p => p.Id == id);
 
-        public IEnumerable<Product> GetProducts(ProductFilter Filter = null)
+        public IEnumerable<Domain.Entities.Product> GetProducts(ProductFilter Filter = null)
         {
             var query = TestData.Products;
 
