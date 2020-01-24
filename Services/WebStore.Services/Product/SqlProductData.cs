@@ -15,7 +15,7 @@ namespace WebStore.Services.Product
         public SqlProductData(WebStoreContext bd) => _bd = bd;
 
         public IEnumerable<Brand> GetBrands() => _bd.Brands
-            .Include(brand => brand.Products)
+            //.Include(brand => brand.Products)
             .AsEnumerable();
 
         public ProductDTO GetProductById(int id)
@@ -68,7 +68,7 @@ namespace WebStore.Services.Product
         }
 
         public IEnumerable<Section> GetSections() => _bd.Sections
-            .Include(section => section.Products)
+            //.Include(section => section.Products)
             .AsEnumerable();
     }
 }

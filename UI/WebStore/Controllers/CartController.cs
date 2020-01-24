@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using WebStore.Domain.DTO.Orders;
 using WebStore.Domain.ViewModels;
 using WebStore.infrastucture.interfaces;
 
@@ -45,6 +43,7 @@ namespace WebStore.Controllers
             return RedirectToAction("Details");
         }
 
+        [HttpPost, ValidateAntiForgeryToken]
         public IActionResult CheckOut(OrderViewModel model, [FromServices] IOrderService orderService)
         {
             if (!ModelState.IsValid)
@@ -53,7 +52,21 @@ namespace WebStore.Controllers
                     CartViewModel = _cartService.TransformFromCart(),
                     OrderViewModel = model
                 });
-            var order = orderService.CreateOrder(model, _cartService.TransformFromCart(), User.Identity.Name);
+
+            var create_order_model = new CreateOrderModel
+            {
+                OrderViewModel = model,
+                OrderItems = _cartService.TransformFromCart().Items
+                    .Select(item => new OrderItemDTO
+                    {
+                        Id = item.Key.Id,
+                        Price = item.Key.Price,
+                        Quantity = item.Value
+                    })
+                    .ToList()
+            };
+
+            var order = orderService.CreateOrder(create_order_model, User.Identity.Name);
 
             _cartService.RemoveAll();
 
