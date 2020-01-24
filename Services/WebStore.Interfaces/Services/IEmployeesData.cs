@@ -35,7 +35,7 @@ namespace WebStore.infrastucture.interfaces
         /// </summary>
         /// <param name="id">Идентификатор сотрудника</param>
         /// <param name="Employee">Модель с данными сотрудника, которые нужно внести в сервис</param>
-        void Edit(int id, EmployeeView Employee);
+        EmployeeView Edit(int id, EmployeeView Employee);
 
         /// <summary>
         /// Удаление сотрудника по его идентификатору

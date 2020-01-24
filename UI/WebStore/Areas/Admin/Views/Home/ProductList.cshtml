@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebStore.Domain.Entities.Product>
+﻿@model IEnumerable<WebStore.Domain.DTO.Products.ProductDTO>
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Список товаров";
@@ -31,7 +31,7 @@
 
                                     <th>@Html.DisplayNameFor(product => product.Name)</th>
                                     <th>@Html.DisplayNameFor(product => product.Brand)</th>
-                                    <th>@Html.DisplayNameFor(product => product.Section)</th>
+                                    @*<th>@Html.DisplayNameFor(product => product.Section)</th>*@
                                     <th>Image</th>
                                     <th>@Html.DisplayNameFor(product => product.Price)</th>
 
@@ -47,7 +47,7 @@
                                         </td>
                                         <td>@Html.DisplayFor(p => product.Name)</td>
                                         <td>@Html.DisplayFor(p => product.Brand.Name)</td>
-                                        <td>@Html.DisplayFor(p => product.Section.Name)</td>
+                                        @*<td>@Html.DisplayFor(p => product.Section.Name)</td>*@
                                         <td><img src="~/images/shop/@product.ImageUrl" width="50" alt="@product.Name"/></td>
                                         <td>@Html.DisplayFor(p => product.Price)</td>
                                         <td>

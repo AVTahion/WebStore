@@ -31,19 +31,21 @@ namespace WebStore.Services.Product
             return _Employes.Remove(db_employee);
         }
 
-        public void Edit(int id, EmployeeView Employee)
+        public EmployeeView Edit(int id, EmployeeView Employee)
         {
             if (Employee is null)
                 throw new ArgumentNullException(nameof(Employee));
 
             var db_employee = GetById(id);
-            if (db_employee is null) return;
+            if (db_employee is null) return null;
 
             db_employee.FirstName = Employee.FirstName;
             db_employee.LastName = Employee.LastName;
             db_employee.Patronymic = Employee.Patronymic;
             db_employee.Age = Employee.Age;
             db_employee.TelNumber = Employee.TelNumber;
+
+            return db_employee;
         }
 
         public IEnumerable<EmployeeView> GetAll() => _Employes;
