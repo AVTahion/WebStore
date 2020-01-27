@@ -2,18 +2,16 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebStore.Clients.Employees;
+using WebStore.Clients.Identity;
 using WebStore.Clients.Orders;
 using WebStore.Clients.Products;
 using WebStore.Clients.Values;
-using WebStore.DAL.Context;
 using WebStore.Domain.Entities.Identity;
 using WebStore.infrastucture.interfaces;
 using WebStore.Interfaces.Api;
-using WebStore.Services.Database;
 using WebStore.Services.Product;
 
 namespace WebStore
@@ -25,24 +23,32 @@ namespace WebStore
         public Startup(IConfiguration Config) => Configuration = Config;
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<WebStoreContext>(opt =>
-                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddTransient<WebStoreContextInitializer>();
-
             services.AddSingleton<IEmployeesData, EmployeesClient>();
-            //services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
-            //services.AddScoped<IProductData, InMemoryProductData>();
-            //services.AddScoped<IProductData, SqlProductData>();
             services.AddScoped<IProductData, ProductsClient>();
             services.AddScoped<ICartService, CookieCartService>();
-            //services.AddScoped<IOrderService, SqlOrderService>();
             services.AddScoped<IOrderService, OrdersClient>();
 
             services.AddTransient<IValuesService, ValuesClient>();
 
+            #region Custom implementation identity storages
+
+            services.AddTransient<IUserStore<User>, UsersClient>();
+            services.AddTransient<IUserRoleStore<User>, UsersClient>();
+            services.AddTransient<IUserClaimStore<User>, UsersClient>();
+            services.AddTransient<IUserPasswordStore<User>, UsersClient>();
+            services.AddTransient<IUserEmailStore<User>, UsersClient>();
+            services.AddTransient<IUserPhoneNumberStore<User>, UsersClient>();
+            services.AddTransient<IUserTwoFactorStore<User>, UsersClient>();
+            services.AddTransient<IUserLoginStore<User>, UsersClient>();
+            services.AddTransient<IUserLockoutStore<User>, UsersClient>();
+
+            services.AddTransient<IRoleStore<Role>, RolesClient>();
+
+            #endregion
+
             services.AddIdentity<User, Role>()
-                .AddEntityFrameworkStores<WebStoreContext>()
                 .AddDefaultTokenProviders();
+
             services.Configure<IdentityOptions>(
                 opt =>
                 {
@@ -59,6 +65,7 @@ namespace WebStore
 
                     opt.User.RequireUniqueEmail = false;
                 });
+
             services.ConfigureApplicationCookie(opt =>
             {
                 opt.Cookie.Name = "WebStore-Identity";
@@ -77,10 +84,8 @@ namespace WebStore
             services.AddMvc();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, WebStoreContextInitializer db)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            db.InitializeAsync().Wait();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -103,11 +108,6 @@ namespace WebStore
                     "default",
                     "{controller=Home}/{action=Index}/{id?}");
            });
-
-            //app.Run(async (context) =>
-            //{
-            //    await context.Response.WriteAsync(Configuration["CustomData"]);
-            //});
         }
     }
 }
