@@ -12,9 +12,9 @@ namespace WebStore.ServiceHosting.Controllers
     [ApiController]
     public class RolesApiController : ControllerBase
     {
-        private readonly RoleStore<Role> _RoleStore;
+        private readonly RoleStore<Role, WebStoreContext> _RoleStore;
 
-        public RolesApiController(WebStoreContext db) => _RoleStore = new RoleStore<Role>(db);
+        public RolesApiController(WebStoreContext db) => _RoleStore = new RoleStore<Role, WebStoreContext>(db);
 
         /* ---------------------------------------------------------------- */
 
@@ -39,13 +39,21 @@ namespace WebStore.ServiceHosting.Controllers
         public async Task<string> GetRoleNameAsync(Role role) => await _RoleStore.GetRoleNameAsync(role);
 
         [HttpPost("SetRoleName/{name}")]
-        public async Task SetRoleNameAsync(Role role, string name) => await _RoleStore.SetRoleNameAsync(role, name);
+        public async Task SetRoleNameAsync(Role role, string name)
+        {
+            await _RoleStore.SetRoleNameAsync(role, name);
+            await _RoleStore.UpdateAsync(role);
+        }
 
         [HttpPost("GetNormalizedRoleName")]
         public async Task<string> GetNormalizedRoleNameAsync(Role role) => await _RoleStore.GetNormalizedRoleNameAsync(role);
 
         [HttpPost("SetNormalizedRoleName/{name}")]
-        public async Task SetNormalizedRoleNameAsync(Role role, string name) => await _RoleStore.SetNormalizedRoleNameAsync(role, name);
+        public async Task SetNormalizedRoleNameAsync(Role role, string name)
+        {
+            await _RoleStore.SetNormalizedRoleNameAsync(role, name);
+            await _RoleStore.UpdateAsync(role);
+        }
 
         [HttpGet("FindById/{id}")]
         public async Task<Role> FindByIdAsync(string id) => await _RoleStore.FindByIdAsync(id);
