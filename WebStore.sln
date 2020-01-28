@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.Interfaces", "Serv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.Services", "Services\WebStore.Services\WebStore.Services.csproj", "{F3DFDC2C-7167-4369-80F2-8C43A1A09E4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.Clients", "Services\WebStore.Clients\WebStore.Clients.csproj", "{78BD820B-AFB4-486E-9388-9C801BB8D5F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.Clients", "Services\WebStore.Clients\WebStore.Clients.csproj", "{78BD820B-AFB4-486E-9388-9C801BB8D5F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.Logger", "WebStore.Logger\WebStore.Logger.csproj", "{0BE9B6C6-F39D-4659-90DA-E3553B16CD0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{78BD820B-AFB4-486E-9388-9C801BB8D5F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78BD820B-AFB4-486E-9388-9C801BB8D5F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78BD820B-AFB4-486E-9388-9C801BB8D5F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BE9B6C6-F39D-4659-90DA-E3553B16CD0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BE9B6C6-F39D-4659-90DA-E3553B16CD0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BE9B6C6-F39D-4659-90DA-E3553B16CD0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BE9B6C6-F39D-4659-90DA-E3553B16CD0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +75,7 @@ Global
 		{9FDD3E87-F0BB-4E08-B33D-DA3B9F100F78} = {4A10765A-20FC-491C-8E27-2FBE3FEA5AD2}
 		{F3DFDC2C-7167-4369-80F2-8C43A1A09E4E} = {4A10765A-20FC-491C-8E27-2FBE3FEA5AD2}
 		{78BD820B-AFB4-486E-9388-9C801BB8D5F5} = {4A10765A-20FC-491C-8E27-2FBE3FEA5AD2}
+		{0BE9B6C6-F39D-4659-90DA-E3553B16CD0C} = {7CE23B3B-B73A-4A16-81A9-E5679D48EF42}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9D3F6310-E247-47D0-BFAA-A4C7BA863AD5}
