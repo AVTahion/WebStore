@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using WebStore.DAL.Context;
 using WebStore.Domain.DTO.Orders;
 using WebStore.Domain.Entities;
@@ -15,16 +16,19 @@ namespace WebStore.Services.Product
     {
         private readonly WebStoreContext _db;
         private readonly UserManager<User> _userManager;
+        private readonly ILogger<SqlOrderService> _logger;
 
-        public SqlOrderService(WebStoreContext db, UserManager<User> userManager)
+        public SqlOrderService(WebStoreContext db, UserManager<User> userManager, ILogger<SqlOrderService> Logger)
         {
             _db = db;
             _userManager = userManager;
+            _logger = Logger;
         }
 
         public OrderDTO CreateOrder(CreateOrderModel OrderModel, string UserName)
         {
             var user = _userManager.FindByNameAsync(UserName).Result;
+            _logger.LogInformation($"Пользователь {user.UserName} оформляет заказ");
 
             using (var transaction = _db.Database.BeginTransaction())
             {
@@ -36,14 +40,17 @@ namespace WebStore.Services.Product
                     Date = DateTime.Now,
                     User = user
                 };
-
+                _logger.LogInformation($"Указанный получатель заказа: {order.Name}, адрес доставки: {order.Address}, телефон для связи: {order.Phone}");
                 _db.Orders.Add(order);
 
                 foreach (var item in OrderModel.OrderItems)
                 {
                     var product = _db.Products.FirstOrDefault(p => p.Id == item.Id);
                     if (product is null)
+                    {
+                        _logger.LogError($"Товар с id {item.Id} отсутствует в БД");
                         throw new InvalidOperationException($"Товар с ID:{item.Id} отсутствует в БД");
+                    }
 
                     var order_item = new OrderItem
                     {
@@ -54,10 +61,14 @@ namespace WebStore.Services.Product
                     };
 
                     _db.OrderItems.Add(order_item);
+                    _logger.LogInformation($"В заказ добавлен товар: {product.Name} - {item.Quantity} шт.");
                 }
 
                 _db.SaveChanges();
                 transaction.Commit();
+
+                _logger.LogInformation($"Заказ {order.Id} пользователя {user.UserName} оформлен");
+
                 return new OrderDTO
                 {
                     Phone = order.Phone,
