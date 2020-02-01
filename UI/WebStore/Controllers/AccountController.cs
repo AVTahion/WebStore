@@ -102,6 +102,6 @@ namespace WebStore.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult AccessDenided() => View();
+        public IActionResult AccessDenied() => View();
     }
 }

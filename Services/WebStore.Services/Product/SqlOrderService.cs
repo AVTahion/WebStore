@@ -67,7 +67,7 @@ namespace WebStore.Services.Product
                 _db.SaveChanges();
                 transaction.Commit();
 
-                _logger.LogInformation($"Заказ {order.Id} пользователя {user.UserName} оформлен");
+                _logger.LogInformation($"Заказ {order.Id} пользователя {user.UserName} оформлен", order);
 
                 return new OrderDTO
                 {
